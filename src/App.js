@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import RandomJoke from "./pages/RandomJoke";
 import JokeByCategory from "./pages/JokeByCategory";
 import Header from "./componenets/Header";
-import {CssBaseline} from "@mui/material";
+import {Container, CssBaseline} from "@mui/material";
 
 const App = () => {
     return (
@@ -12,11 +12,13 @@ const App = () => {
             <div>
                 <Router>
                     <Header/>
-                    <Switch>
-                        <Route exact path="/" component={RandomJoke}/>
-                        <Route exact path="/jokebycategory" component={JokeByCategory}/>
-                        <Route path="*" component={RandomJoke}/>
-                    </Switch>
+                    <Container maxWidth="lg">
+                        <Switch>
+                            <Route exact path="/" component={RandomJoke}/>
+                            <Route exact path="/jokebycategory" component={JokeByCategory}/>
+                            <Route path="*" component={RandomJoke}/>
+                        </Switch>
+                    </Container>
                 </Router>
             </div>
         </CssBaseline>

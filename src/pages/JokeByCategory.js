@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {getjokeByCategorieAsync} from "../redux/Slice";
 import {Card, CardContent, Grid, Typography} from "@mui/material";
@@ -15,12 +15,12 @@ const useStyle = makeStyles({
 const JokeByCategory = () => {
 
     const classes = useStyle();
-    // const categories =
 
     const dispatch = useDispatch();
 
     useEffect(() =>{
-        dispatch(getJokesCategoriesAsync())
+        dispatch(getJokesCategoriesAsync());
+
     }, [])
 
     const categories = useSelector((state) => state.jokeCategories)
@@ -33,6 +33,21 @@ const JokeByCategory = () => {
         dispatch(getjokeByCategorieAsync({categorie: e.target.value}))
     }
 
+
+    if(!result){
+        return (
+            <div>
+                {categories.map((categoriesList) =>{
+                    return <Grid item sx={{m:1}} className={classes.alignCategories}>
+                        <Typography>{categoriesList}</Typography>
+                        <input type="radio" onClick={handleCategorieClick} value={categoriesList} name="categories"/>
+                    </Grid>
+                })}
+                <p>Select categorie</p>
+            </div>
+        )
+    }
+
     return (
         <div>
             {categories.map((categoriesList) =>{
@@ -42,8 +57,8 @@ const JokeByCategory = () => {
                 </Grid>
             })}
             {result.map((newResult, key) =>{
-                return <Grid item key={newResult.id} id={newResult.id} >
-                    <Typography variant="h3">{newResult.value}</Typography>
+                return <Grid item sx={{m:3}} key={newResult.id} id={newResult.id} >
+                    <Typography variant="h5">{newResult.value}</Typography>
                 </Grid>
             })}
         </div>
